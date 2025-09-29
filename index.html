@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Rialo Community FAQ</title>
+  <meta name="description" content="Rialo Community — FAQs in English and Roman Urdu with language toggle" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='46' fill='%23000'/%3E%3Cpath d='M25 65 Q50 25 75 65' stroke='%23fff' stroke-width='8' fill='none' stroke-linecap='round'/%3E%3Ccircle cx='50' cy='40' r='6' fill='%23fff'/%3E%3C/svg%3E" />
+  <style>
+    :root{
+      --bg: #0b0c10;
+      --card: #111318;
+      --soft: #1a1d25;
+      --text: #e6e9ef;
+      --muted: #a7b0c0;
+      --brand: #5b8cff;
+      --brand-2: #6df0c2;
+      --ring: rgba(91,140,255,.4);
+      --ok: #37d39b;
+      --warn: #ffd66b;
+      --danger:#ff6b6b;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+      color:var(--text);
+      background: radial-gradient(1200px 600px at 80% -10%, rgba(91,140,255,.15), transparent 60%),
+                  radial-gradient(900px 500px at -10% 0%, rgba(109,240,194,.12), transparent 60%),
+                  var(--bg);
+    }
+    a{color:var(--brand); text-decoration:none}
+    a:hover{text-decoration:underline}
+
+    /* Layout */
+    .container{max-width:1100px; margin:0 auto; padding:24px}
+    header{
+      position:sticky; top:0; z-index:10;
+      backdrop-filter: saturate(180%) blur(10px);
+      background: rgba(11,12,16,.6);
+      border-bottom:1px solid rgba(255,255,255,.06);
+    }
+    .nav{
+      display:flex; align-items:center; gap:16px; justify-content:space-between;
+      padding:14px 0;
+    }
+    .brand{display:flex; align-items:center; gap:10px; font-weight:700}
+    .badge{font-size:12px; color:var(--muted); border:1px solid rgba(255,255,255,.08); padding:4px 8px; border-radius:999px}
+
+    /* Toggle + search */
+    .controls{display:flex; flex-wrap:wrap; gap:10px; align-items:center}
+    .select, .search{
+      background:var(--soft); color:var(--text);
+      border:1px solid rgba(255,255,255,.08);
+      border-radius:10px; padding:10px 12px; outline:none;
+    }
+    .select{cursor:pointer}
+    .search{min-width:240px}
+
+    /* Hero */
+    .hero{padding:40px 0 10px}
+    .hero h1{font-size:clamp(28px, 3.5vw, 44px); margin:0 0 10px}
+    .lead{color:var(--muted); font-size:clamp(14px, 2vw, 18px)}
+    .cta-row{margin-top:18px; display:flex; gap:10px; align-items:center; flex-wrap:wrap}
+    .btn{
+      padding:10px 14px; border-radius:10px; border:1px solid rgba(255,255,255,.08);
+      background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.02));
+      color:var(--text); text-decoration:none; display:inline-flex; gap:8px; align-items:center;
+    }
+    .btn.primary{background: linear-gradient(180deg, rgba(91,140,255,.25), rgba(91,140,255,.08)); border-color: rgba(91,140,255,.35)}
+    .btn:hover{transform: translateY(-1px); transition: .2s ease}
+
+    /* Cards / FAQ */
+    .grid{display:grid; grid-template-columns: 1.2fr .8fr; gap:22px}
+    @media (max-width: 960px){ .grid{grid-template-columns: 1fr} }
+
+    .card{background:var(--card); border:1px solid rgba(255,255,255,.06); border-radius:16px; overflow:hidden}
+    .card .head{display:flex; align-items:center; justify-content:space-between; padding:16px 18px; border-bottom:1px solid rgba(255,255,255,.06)}
+    .card .body{padding:10px 14px 14px}
+
+    .faq{display:flex; flex-direction:column}
+    .faq-item{border:1px solid rgba(255,255,255,.06); background:linear-gradient(180deg, rgba(255,255,255,.02), rgba(255,255,255,.01)); border-radius:12px; margin:10px 0; overflow:hidden}
+    .faq-q{
+      cursor:pointer; display:flex; gap:12px; align-items:flex-start; padding:14px 14px; position:relative;
+    }
+    .faq-q:hover{background:rgba(255,255,255,.02)}
+    .faq-q .num{font-weight:700; color:var(--brand-2)}
+    .faq-q .title{font-weight:600}
+    .faq-q .chev{margin-left:auto; color:var(--muted)}
+    .faq-a{display:none; color:var(--muted); padding:0 14px 14px}
+    .faq-item.open .faq-a{display:block}
+
+    .meta{display:grid; grid-template-columns: 1fr 1fr; gap:10px}
+    @media (max-width: 640px){ .meta{grid-template-columns: 1fr} }
+    .pill{background:var(--soft); border:1px solid rgba(255,255,255,.06); border-radius:12px; padding:10px}
+
+    footer{margin:30px 0; color:var(--muted); text-align:center}
+    .small{font-size:12px}
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container nav">
+      <div class="brand">
+        <svg width="26" height="26" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <circle cx="50" cy="50" r="46" fill="#0f1117" stroke="#5b8cff" stroke-width="4"/>
+          <path d="M25 65 Q50 25 75 65" stroke="#6df0c2" stroke-width="6" fill="none" stroke-linecap="round"/>
+          <circle cx="50" cy="40" r="6" fill="#5b8cff"/>
+        </svg>
+        <span>Rialo Community</span>
+        <span class="badge" id="mode-badge">Private Devnet</span>
+      </div>
+      <div class="controls">
+        <input id="search" class="search" type="search" placeholder="Search questions…" />
+        <select id="lang" class="select" aria-label="Language">
+          <option value="en">English</option>
+          <option value="ur">Roman Urdu</option>
+          <option value="vi">🇻🇳 Vietnamese</option>
+          <option value="id">🇮🇩 Indonesian</option>
+          <option value="ru">🇷🇺 Russian</option>
+          <option value="zh">🇨🇳 Chinese (Mandarin)</option>
+          <option value="hi">🇮🇳 Hindi</option>
+          <option value="en-NG">🇳🇬 English (Nigeria)</option>
+          <option value="uk">🇺🇦 Ukrainian</option>
+          <option value="tr">🇹🇷 Turkish</option>
+          <option value="ko">🇰🇷 Korean</option>
+          <option value="bn">🇧🇩 Bengali</option>
+          <option value="th">🇹🇭 Thai</option>
+        </select>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="hero">
+      <h1 id="hero-title">Rialo — Web2 × Web3, without friction</h1>
+      <p class="lead" id="hero-lead">Explore what Rialo is, why it matters, and how you can participate. Switch language to read in Roman Urdu.</p>
+      <div class="cta-row">
+        <a class="btn primary" href="https://rialo.io" target="_blank" rel="noopener">Visit rialo.io</a>
+        <span class="small">TBD: Testnet & Mainnet timelines</span>
+      </div>
+    </section>
+
+    <section class="grid">
+      <div class="card">
+        <div class="head">
+          <strong id="faq-heading">Frequently Asked Questions</strong>
+          <span class="small" id="faq-count">10 items</span>
+          <span class="small" id="translation-note" style="display:none; margin-left:8px; color:#ffd66b;">Using English answers until translation is ready.</span>
+        </div>
+        <div class="body">
+          <div id="faq" class="faq" role="list"></div>
+        </div>
+      </div>
+
+      <aside class="card">
+        <div class="head"><strong id="quick-facts-title">Quick Facts</strong></div>
+        <div class="body">
+          <div class="meta">
+            <div class="pill">
+              <div class="small" id="status-label">Status</div>
+              <div><strong id="status-value">Private Devnet</strong></div>
+            </div>
+            <div class="pill">
+              <div class="small" id="funding-label">Funding</div>
+              <div><strong id="funding-value">$20M (Pantera-led)</strong></div>
+            </div>
+            <div class="pill">
+              <div class="small" id="docs-label">Docs</div>
+              <div id="docs-value">Whitepaper TBA • Blog live</div>
+            </div>
+            <div class="pill">
+              <div class="small" id="features-label">Built-ins</div>
+              <div id="features-value">Webcalls • Smart Triggers • Cross-chain</div>
+            </div>
+          </div>
+        </div>
+      </aside>
+    </section>
+
+    <footer>
+      <p class="small">© <span id="year"></span> Rialo Community • This page is community-made for educational purposes.</p>
+    </footer>
+  </main>
+
+  <script>
+    const byId = (id) => document.getElementById(id);
+
+    const content = {
+      en: {
+        heroTitle: "Rialo — Web2 × Web3, without friction",
+        heroLead: "Explore what Rialo is, why it matters, and how you can participate. Switch language to read in Roman Urdu.",
+        faqHeading: "Frequently Asked Questions",
+        faqCount: "10 items",
+        quickFactsTitle: "Quick Facts",
+        statusLabel: "Status",
+        statusValue: "Private Devnet",
+        fundingLabel: "Funding",
+        fundingValue: "$20M (Pantera-led)",
+        docsLabel: "Docs",
+        docsValue: "Whitepaper TBA • Blog live",
+        featuresLabel: "Built-ins",
+        featuresValue: "Webcalls • Smart Triggers • Cross-chain",
+        searchPlaceholder: "Search questions…",
+        items: [
+          {
+            q: "What is Rialo?",
+            a: "Rialo isn’t a layer-one blockchain. It’s next‑gen infrastructure that bridges Web2 and Web3 so real apps can use blockchain features (payments, data, triggers) without friction. rialo.io"
+          },
+          {
+            q: "What problems does Rialo solve?",
+            a: "Removes complexity that blocks mainstream crypto (no confusing wallets/seed phrases/clunky UI). Makes blockchain integration nearly invisible. Enables real-world data & connectivity natively; apps just work with webcalls, smart triggers, cross‑chain flows. rialo.io"
+          },
+          {
+            q: "How does Rialo work (technical/architecture)?",
+            a: "It makes Web3 features (payments, data feeds, triggers) native to Web2 apps. Supports internal webcalls to chain/internet. Built‑in smart triggers/timers/scheduling for real‑time logic. Cross‑chain flows without hacks/wrappers/middleware. Secure encrypted messaging to users (email/phone/device ID) without wallet setup. rialo.io"
+          },
+          {
+            q: "What’s the value for builders and real apps?",
+            a: "A unified full‑stack: no stitching of multiple layers. Faster development with less boilerplate. More reliable real‑world interactions: data, triggers, payments are native. Apps on Rialo can ‘just run’ and ‘just ship.’"
+          },
+          {
+            q: "What’s the current status (roadmap/deployment)?",
+            a: "Currently in private devnet. No public testnet/mainnet yet (TBD). Official whitepaper/docs not yet published; more features rolling out (e.g., Discord role updates)."
+          },
+          {
+            q: "How much has Rialo raised / who backs it?",
+            a: "$20M initial raise by Subzero Labs (led by Pantera Capital) to build Rialo and its ecosystem."
+          },
+          {
+            q: "What are the community roles (Club Member, RiaLOYAL, OG)?",
+            a: "Club Member: distributed Tuesdays by @RialORCA; post in ‘club-tasks’; content must be fun, educational, aligned, quality; weekly consistency required; inactive may be purged. RiaLOYAL: more selective; drive HQ convos, help newcomers, support community, active in channels; mods must recognize you; message count alone doesn’t matter; can be removed if inconsistent. OG: later; must be Club Member; likely extra benefits."
+          },
+          {
+            q: "Can roles change or be removed?",
+            a: "Yes. Roles like Club Member and RiaLOYAL must be maintained and can be removed/converted if activity drops or criteria aren’t met. New Discord features may also transform roles."
+          },
+          {
+            q: "Where to find more resources (whitepaper, docs, blog)?",
+            a: "No official whitepaper/full docs yet. Blog posts live (e.g., ‘Making the Agent Economy Simple and Safe with Rialo’) at rialo.io. More documentation and updates will be released."
+          },
+          {
+            q: "Who are the contributors / team?",
+            a: "Experienced builders and researchers from blockchain infrastructure and high‑growth tech firms; contributors have worked on foundational ecosystem projects. rialo.io"
+          }
+        ]
+      },
+      ur: {
+        heroTitle: "Rialo — Web2 aur Web3 bina jhanjhat ke",
+        heroLead: "Janiye Rialo kya hai, kyun aham hai, aur aap kaise shamil ho sakte hain. Roman Urdu mein padhne ke liye zubaan badlein.",
+        faqHeading: "Aksar pooche gaye sawaal",
+        faqCount: "10 items",
+        quickFactsTitle: "Mukhtasar Maloomat",
+        statusLabel: "Haalat",
+        statusValue: "Private Devnet",
+        fundingLabel: "Funding",
+        fundingValue: "$20M (Pantera lead)",
+        docsLabel: "Docs",
+        docsValue: "Whitepaper TBA • Blog maujood",
+        featuresLabel: "Built‑ins",
+        featuresValue: "Webcalls • Smart Triggers • Cross‑chain",
+        searchPlaceholder: "Sawaal dhoondhein…",
+        items: [
+          {
+            q: "Rialo kya hai?",
+            a: "Rialo layer‑one blockchain nahi. Yeh next‑gen infrastructure hai jo Web2 aur Web3 ko asani se jorta hai, taake real apps blockchain features (payments, data, triggers) baghair friction ke istemal kar saken. rialo.io"
+          },
+          {
+            q: "Rialo kaun si mushkilaat hal karta hai?",
+            a: "Woh saari complexity door karta hai jo mainstream crypto ko rok rahi thi (confusing wallets, seed phrases, clunky UI). Integration users ke liye lagbhag ghair‑mehsos ho jati hai. Real‑world data aur connectivity natively milti hai; apps webcalls, smart triggers, cross‑chain flows ke sath ‘bas chalti’ hain. rialo.io"
+          },
+          {
+            q: "Rialo kaam kaise karta hai (technical/architecture)?",
+            a: "Web3 features (payments, data feeds, triggers) ko Web2 apps ka hissa bana deta hai. Andarooni tor par webcalls support hoti hain (chain/internet services). Smart triggers/timers/scheduling built‑in hai, taake logic real‑time respond kare. Cross‑chain flows baghair hacks/wrappers/extra middleware. Users ko secure, encrypted messaging (email/phone/device ID) baghair wallet setup ke. rialo.io"
+          },
+          {
+            q: "Builders aur real apps ke liye kya faida?",
+            a: "Unified full‑stack milta hai; multiple layers jorne ki kam zarurat. Tez development, kam boilerplate. Real‑world interaction zyada reliable: data, triggers, payments sab native. Rialo par apps ‘bas chalti’ aur ‘bas ship hoti’ hain."
+          },
+          {
+            q: "Abhi kya status hai (roadmap/deployment)?",
+            a: "Filhal private devnet me hai. Abhi public testnet/mainnet nahi (TBD). Official whitepaper/docs abhi publish nahi hue; nayi features rollout ho rahi hain (jaise Discord role updates)."
+          },
+          {
+            q: "Kitni funding hui / kon support karta hai?",
+            a: "$20M initial raise Subzero Labs ke zariye (Pantera Capital lead) Rialo aur us ke ecosystem ke liye."
+          },
+          {
+            q: "Community roles kya hain (Club Member, RiaLOYAL, OG)?",
+            a: "Club Member: har Tuesday @RialORCA distribute karta; ‘club-tasks’ categories me posts banayen; content fun/educational/idea se aligned/quality ho; weekly consistency zaruri; ghair‑faal members baad me hataye ja sakte. RiaLOYAL: zyada selective; HQ me baat cheet chalana, newcomers ki madad, community support, regional + general channels me active; mods aap ko pehchanein; sirf message count matter nahi; consistency khatam ho to role remove ho sakta. OG: baad me milega; eligibility ke liye Club Member hona zaruri; extra faide mumkin."
+          },
+          {
+            q: "Kya roles badal ya remove ho sakte hain?",
+            a: "Haan. Club Member aur RiaLOYAL jaise roles maintain karne parte hain — activity kam ho ya criteria na mile to remove/convert ho sakte. Naye Discord features se kuch roles me tabdeeli bhi ho sakti hai."
+          },
+          {
+            q: "Zyada maloomat kahan milegi (whitepaper, docs, blog)?",
+            a: "Abhi official whitepaper/poori docs maujood nahi. Blog posts site par uplabdh/maujood (misal: ‘Making the Agent Economy Simple and Safe with Rialo’) — rialo.io. Aindah docs aur updates ayengi."
+          },
+          {
+            q: "Contributors / team kon hain?",
+            a: "Blockchain infrastructure aur high‑growth tech firms ke tajurba‑kaar builders aur researchers; contributors ne ecosystem ke bunyadi projects par kaam kiya hai. rialo.io"
+          }
+        ]
+      },
+      vi: {
+        heroTitle: "Rialo — Kết nối Web2 × Web3 không ma sát",
+        heroLead: "Tìm hiểu Rialo là gì, vì sao quan trọng và cách bạn tham gia.",
+        faqHeading: "Câu hỏi thường gặp",
+        faqCount: "10 mục",
+        quickFactsTitle: "Thông tin nhanh",
+        statusLabel: "Trạng thái",
+        statusValue: "Private Devnet",
+        fundingLabel: "Gây quỹ",
+        fundingValue: "$20M (Pantera dẫn dắt)",
+        docsLabel: "Tài liệu",
+        docsValue: "Whitepaper TBA • Blog đang hoạt động",
+        featuresLabel: "Tính năng tích hợp",
+        featuresValue: "Webcalls • Smart Triggers • Cross-chain",
+        searchPlaceholder: "Tìm kiếm câu hỏi…"
+      },
+      id: {
+        heroTitle: "Rialo — Web2 × Web3 tanpa gesekan",
+        heroLead: "Pelajari apa itu Rialo, mengapa penting, dan cara ikut serta.",
+        faqHeading: "Pertanyaan Umum",
+        faqCount: "10 item",
+        quickFactsTitle: "Fakta Singkat",
+        statusLabel: "Status",
+        statusValue: "Private Devnet",
+        fundingLabel: "Pendanaan",
+        fundingValue: "$20M (dipimpin Pantera)",
+        docsLabel: "Dokumen",
+        docsValue: "Whitepaper TBA • Blog aktif",
+        featuresLabel: "Bawaan",
+        featuresValue: "Webcalls • Smart Triggers • Cross-chain",
+        searchPlaceholder: "Cari pertanyaan…"
+      },
+      ru: {
+        heroTitle: "Rialo — Web2 × Web3 без трения",
+        heroLead: "Узнайте, что такое Rialo, почему это важно и как присоединиться.",
+        faqHeading: "Частые вопросы",
+        faqCount: "10 пунктов",
+        quickFactsTitle: "Краткие факты",
+        statusLabel: "Статус",
+        statusValue: "Private Devnet",
+        fundingLabel: "Финансирование",
+        fundingValue: "$20M (Pantera)",
+        docsLabel: "Документы",
+        docsValue: "Whitepaper TBA • Блог",
+        featuresLabel: "Встроено",
+        featuresValue: "Webcalls • Smart Triggers • Cross-chain",
+        searchPlaceholder: "Поиск вопросов…"
+      },
+      zh: {
+        heroTitle: "Rialo — 无摩擦连接 Web2 与 Web3",
+        heroLead: "了解 Rialo 是什么、为何重要，以及如何参与。",
+        faqHeading: "常见问题",
+        faqCount: "10 条",
+        quickFactsTitle: "快速了解",
+        statusLabel: "状态",
+        statusValue: "Private Devnet",
+        fundingLabel: "融资",
+        fundingValue: "$20M（Pantera 领投）",
+        docsLabel: "文档",
+        docsValue: "Whitepaper 待公布 • 博客已上线",
+        featuresLabel: "内置功能",
+        featuresValue: "Webcalls • Smart Triggers • Cross-chain",
+        searchPlaceholder: "搜索问题…"
+      },
+      hi: {
+        heroTitle: "Rialo — Web2 और Web3 बिना झंझट के",
+        heroLead: "जानिए Rialo क्या है, क्यों ज़रूरी है और इसमें कैसे जुड़ें।",
+        faqHeading: "अक्सर पूछे जाने वाले सवाल",
+        faqCount: "10 आइटम",
+        quickFactsTitle: "त्वरित जानकारी",
+        statusLabel: "स्थिति",
+        statusValue: "Private Devnet",
+        fundingLabel: "फंडिंग",
+        fundingValue: "$20M (Pantera द्वारा)",
+        docsLabel: "दस्तावेज़",
+        docsValue: "Whitepaper TBA • ब्लॉग लाइव",
+        featuresLabel: "इनबिल्ट",
+        featuresValue: "Webcalls • Smart Triggers • Cross-chain",
+        searchPlaceholder: "सवाल खोजें…"
+      },
+      "en-NG": {
+        heroTitle: "Rialo — Web2 × Web3, no wahala",
+        heroLead: "Learn what Rialo is, why it matters, and how to jump in.",
+        faqHeading: "Frequently Asked Questions",
+        faqCount: "10 items",
+        quickFactsTitle: "Quick Facts",
+        statusLabel: "Status",
+        statusValue: "Private Devnet",
+        fundingLabel: "Funding",
+        fundingValue: "$20M (Pantera-led)",
+        docsLabel: "Docs",
+        docsValue: "Whitepaper TBA • Blog live",
+        featuresLabel: "Built-ins",
+        featuresValue: "Webcalls • Smart Triggers • Cross-chain",
+        searchPlaceholder: "Search questions…"
+      },
+      uk: {
+        heroTitle: "Rialo — Web2 × Web3 без тертя",
+        heroLead: "Дізнайтесь, що таке Rialo, чому це важливо і як долучитися.",
+        faqHeading: "Поширені запитання",
+        faqCount: "10 пунктів",
+        quickFactsTitle: "Короткі факти",
+        statusLabel: "Статус",
+        statusValue: "Private Devnet",
+        fundingLabel: "Фінансування",
+        fundingValue: "$20M (Pantera)",
+        docsLabel: "Документи",
+        docsValue: "Whitepaper TBA • Блог",
+        featuresLabel: "Вбудовано",
+        featuresValue: "Webcalls • Smart Triggers • Cross-chain",
+        searchPlaceholder: "Пошук запитань…"
+      },
+      tr: {
+        heroTitle: "Rialo — Sürtünmesiz Web2 × Web3",
+        heroLead: "Rialo nedir, neden önemli ve nasıl katılabilirsiniz — keşfedin.",
+        faqHeading: "Sıkça Sorulan Sorular",
+        faqCount: "10 madde",
+        quickFactsTitle: "Hızlı Bilgiler",
+        statusLabel: "Durum",
+        statusValue: "Private Devnet",
+        fundingLabel: "Fonlama",
+        fundingValue: "$20M (Pantera liderliğinde)",
+        docsLabel: "Dokümanlar",
+        docsValue: "Whitepaper TBA • Blog yayında",
+        featuresLabel: "Yerleşik",
+        featuresValue: "Webcalls • Smart Triggers • Cross-chain",
+        searchPlaceholder: "Soruları ara…"
+      },
+      ko: {
+        heroTitle: "Rialo — 마찰 없는 Web2 × Web3",
+        heroLead: "Rialo가 무엇이고 왜 중요한지, 어떻게 참여할 수 있는지 알아보세요.",
+        faqHeading: "자주 묻는 질문",
+        faqCount: "10개 항목",
+        quickFactsTitle: "간단 정보",
+        statusLabel: "상태",
+        statusValue: "Private Devnet",
+        fundingLabel: "자금",
+        fundingValue: "$20M (Pantera 주도)",
+        docsLabel: "문서",
+        docsValue: "Whitepaper 예정 • 블로그 운영",
+        featuresLabel: "내장 기능",
+        featuresValue: "Webcalls • Smart Triggers • Cross-chain",
+        searchPlaceholder: "질문 검색…"
+      },
+      bn: {
+        heroTitle: "Rialo — ঘর্ষণহীন Web2 × Web3",
+        heroLead: "Rialo কী, কেন গুরুত্বপূর্ণ এবং কীভাবে যুক্ত হবেন জানুন।",
+        faqHeading: "সাধারণ জিজ্ঞাসা",
+        faqCount: "১০টি আইটেম",
+        quickFactsTitle: "দ্রুত তথ্য",
+        statusLabel: "অবস্থা",
+        statusValue: "Private Devnet",
+        fundingLabel: "অর্থায়ন",
+        fundingValue: "$20M (Pantera নেতৃত্বে)",
+        docsLabel: "ডকস",
+        docsValue: "Whitepaper TBA • ব্লগ সক্রিয়",
+        featuresLabel: "বিল্ট-ইন",
+        featuresValue: "Webcalls • Smart Triggers • Cross-chain",
+        searchPlaceholder: "প্রশ্ন খুঁজুন…"
+      },
+      th: {
+        heroTitle: "Rialo — เชื่อมต่อ Web2 × Web3 แบบไร้รอยต่อ",
+        heroLead: "เรียนรู้ว่า Rialo คืออะไร ทำไมสำคัญ และจะเข้าร่วมได้อย่างไร",
+        faqHeading: "คำถามที่พบบ่อย",
+        faqCount: "10 รายการ",
+        quickFactsTitle: "ข้อมูลย่อ",
+        statusLabel: "สถานะ",
+        statusValue: "Private Devnet",
+        fundingLabel: "เงินทุน",
+        fundingValue: "$20M (Pantera นำ)",
+        docsLabel: "เอกสาร",
+        docsValue: "Whitepaper TBA • บล็อกออนไลน์",
+        featuresLabel: "ฟีเจอร์ในตัว",
+        featuresValue: "Webcalls • Smart Triggers • Cross-chain",
+        searchPlaceholder: "ค้นหาคำถาม…"
+      }
+    };
+
+    function render(lang){
+      const t = content[lang] || content.en;
+      byId('hero-title').textContent = t.heroTitle;
+      byId('hero-lead').textContent = t.heroLead;
+      byId('faq-heading').textContent = t.faqHeading;
+      byId('faq-count').textContent = t.faqCount;
+      byId('quick-facts-title').textContent = t.quickFactsTitle;
+      byId('status-label').textContent = t.statusLabel;
+      byId('status-value').textContent = t.statusValue;
+      byId('funding-label').textContent = t.fundingLabel;
+      byId('funding-value').textContent = t.fundingValue;
+      byId('docs-label').textContent = t.docsLabel;
+      byId('docs-value').textContent = t.docsValue;
+      byId('features-label').textContent = t.featuresLabel;
+      byId('features-value').textContent = t.featuresValue;
+      byId('search').placeholder = t.searchPlaceholder;
+
+      const list = byId('faq');
+      list.innerHTML = '';
+      const items = Array.isArray(t.items) ? t.items : content.en.items;
+      const noteEl = byId('translation-note');
+      if (noteEl){
+        const showNote = !Array.isArray(t.items) && !(lang === 'en' || lang === 'ur');
+        noteEl.style.display = showNote ? 'inline' : 'none';
+      }
+      items.forEach((item, idx) => {
+        const wrap = document.createElement('div');
+        wrap.className = 'faq-item';
+        wrap.setAttribute('role','listitem');
+        wrap.id = `faq-${idx+1}`;
+
+        const q = document.createElement('div');
+        q.className = 'faq-q';
+        q.innerHTML = `
+          <span class="num">${String(idx+1).padStart(2,'0')}</span>
+          <span class="title">${item.q}</span>
+          <span class="chev" aria-hidden="true">▾</span>
+        `;
+        q.addEventListener('click', () => wrap.classList.toggle('open'));
+
+        const a = document.createElement('div');
+        a.className = 'faq-a';
+        a.textContent = item.a;
+
+        wrap.appendChild(q);
+        wrap.appendChild(a);
+        list.appendChild(wrap);
+      });
+
+      // Persist lang
+      try { localStorage.setItem('rialo_lang', lang); } catch {}
+      // Map document language
+      const docLang = (lang === 'ur') ? 'ur' : (lang === 'zh' ? 'zh-CN' : (lang.startsWith('en') ? 'en' : lang));
+      document.documentElement.lang = docLang;
+    }
+
+    // Search filter
+    function setupSearch(){
+      const input = byId('search');
+      input.addEventListener('input', () => {
+        const q = input.value.toLowerCase();
+        const items = Array.from(document.querySelectorAll('.faq-item'));
+        items.forEach(el => {
+          const text = el.textContent.toLowerCase();
+          el.style.display = text.includes(q) ? '' : 'none';
+        });
+        const visible = items.filter(el => el.style.display !== 'none').length;
+        byId('faq-count').textContent = `${visible} item${visible===1?'':'s'}`;
+      });
+    }
+
+    // Init
+    (function init(){
+      const saved = (()=>{ try { return localStorage.getItem('rialo_lang'); } catch { return null } })();
+      const langSel = byId('lang');
+      langSel.value = saved === 'ur' ? 'ur' : 'en';
+      render(langSel.value);
+      setupSearch();
+      langSel.addEventListener('change', () => render(langSel.value));
+      byId('year').textContent = new Date().getFullYear();
+    })();
+  </script>
+</body>
+</html>
